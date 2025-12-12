@@ -1,0 +1,111 @@
+/* Performance Optimizations for Smooth Animations */
+
+/* GPU Acceleration for Smooth Animations */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Optimize animations to use GPU */
+[class*="animate-"],
+[class*="motion-"],
+.group:hover {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Mobile animation optimizations */
+@media (max-width: 768px) {
+  /* Reduce animation complexity on mobile */
+  [class*="animate-"] {
+    animation-duration: 0.4s !important;
+    animation-iteration-count: 1 !important;
+  }
+  
+  /* Disable heavy animations on mobile */
+  .animate-blob,
+  .animate-float,
+  .animate-marquee {
+    animation: none !important;
+  }
+  
+  /* Optimize motion components */
+  [data-motion] {
+    will-change: auto;
+  }
+}
+
+/* Smooth scrolling with better performance */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+  overflow-x: hidden;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Optimize images */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* Prevent layout shifts */
+img[loading="lazy"] {
+  min-height: 200px;
+  background: var(--secondary);
+}
+
+/* Optimize transitions */
+button,
+a,
+input,
+textarea,
+select {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+/* Better scroll performance */
+.scroll-container {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* Optimize hover states */
+@media (hover: hover) {
+  .hover-optimize {
+    will-change: transform, opacity;
+  }
+  
+  .hover-optimize:hover {
+    will-change: auto;
+  }
+}
+
+/* Contain layout shifts */
+section,
+article,
+header,
+footer {
+  contain: layout style paint;
+}
+
+/* Optimize text rendering */
+body {
+  font-display: swap;
+}
+
